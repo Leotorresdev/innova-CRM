@@ -41,7 +41,13 @@ export const useCustomersStore = create<CustomersState>()(
     }),
     {
       name: "innova-customers", // clave en localStorage
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => {
+        try {
+          return localStorage;
+        } catch {
+          return sessionStorage;
+        }
+      }),
     }
   )
 );

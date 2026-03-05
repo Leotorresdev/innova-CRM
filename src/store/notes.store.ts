@@ -36,6 +36,12 @@ export const useNotesStore = create<NotesStore>()(
           notes: state.notes.filter((n) => n.id !== id),
         })),
     }),
-    { name: "innova-notes", storage: createJSONStorage(() => localStorage) }
+    { name: "innova-notes", storage: createJSONStorage(() => {
+      try {
+        return localStorage;
+      } catch {
+        return sessionStorage;
+      }
+    }), }
   )
 );
