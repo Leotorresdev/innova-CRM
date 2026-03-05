@@ -15,16 +15,17 @@ export const useCustomersStore = create<CustomersState>()(
       customers: [],
 
       addCustomer: (data) =>
-        set((state) => ({
-          customers: [
-            ...state.customers,
-            {
-              ...data,
-              id: crypto.randomUUID(),
-              createdAt: new Date().toISOString(),
-            },
-          ],
-        })),
+  set((state) => ({
+    customers: [
+      ...state.customers,
+      {
+        ...data,
+        instagram: data.instagram ?? "",
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+      },
+    ],
+  })),
 
       updateCustomer: (id, data) =>
         set((state) => ({

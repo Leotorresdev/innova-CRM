@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm, useWatch } from "react-hook-form";
+import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { customerSchema, CustomerFormValues } from "@/lib/validations/customer.schema";
 import { useCustomersStore } from "@/store/customers.store";
@@ -27,7 +27,7 @@ export function CustomerForm({ onSuccess }: Props) {
     setValue,
     control,
   } = useForm<CustomerFormValues>({
-    resolver: zodResolver(customerSchema),
+    resolver: zodResolver(customerSchema), // ← sin genérico
     defaultValues: {
       name: "",
       phone: "",
@@ -36,19 +36,21 @@ export function CustomerForm({ onSuccess }: Props) {
     },
   });
 
-  // useWatch es la forma correcta de observar un campo de forma reactiva
   const selectedState = useWatch({ control, name: "state" });
 
-  const onSubmit = (data: CustomerFormValues) => {
-    addCustomer(data);
-    reset();
-    onSuccess?.();
-  };
+ const onSubmit: SubmitHandler<CustomerFormValues> = (data) => {
+  addCustomer({
+    ...data,
+    instagram: data.instagram ?? "",
+  });
+  reset();
+  onSuccess?.();
+};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
-      {/* Fila 1: Nombre y Email */}
+      {/* Fila 1: Nombre y Teléfono */}
       <div className="grid gap-4 sm:grid-cols-2">
 
         <div className="space-y-1.5">
@@ -68,11 +70,6 @@ export function CustomerForm({ onSuccess }: Props) {
           )}
         </div>
 
-      </div>
-
-      {/* Fila 2: Teléfono e Instagram */}
-      <div className="grid gap-4 sm:grid-cols-2">
-
         <div className="space-y-1.5">
           <Label className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
             Teléfono
@@ -89,6 +86,11 @@ export function CustomerForm({ onSuccess }: Props) {
             <p className="text-xs text-rose-500">{errors.phone.message}</p>
           )}
         </div>
+
+      </div>
+
+      {/* Fila 2: Instagram */}
+      <div className="grid gap-4 sm:grid-cols-2">
 
         <div className="space-y-1.5">
           <Label className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
@@ -111,7 +113,7 @@ export function CustomerForm({ onSuccess }: Props) {
         <Label className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
           Estado
         </Label>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {STATE_OPTIONS.map((state) => (
             <button
               key={state}
