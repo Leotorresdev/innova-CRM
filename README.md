@@ -120,71 +120,23 @@ npm install
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Scripts disponibles
-```bash
-npm run dev      # Servidor de desarrollo
-npm run build    # Build de producción
-npm run start    # Iniciar en producción
-npm run lint     # Verificar errores de ESLint
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
----
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 💾 Persistencia de Datos
+## Learn More
 
-Los datos se almacenan en `localStorage` del navegador mediante el middleware `persist` de Zustand:
+To learn more about Next.js, take a look at the following resources:
 
-| Store | Clave localStorage |
-|---|---|
-| Clientes | `innova-customers` |
-| Notas | `innova-notes` |
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-> Los datos persisten entre sesiones pero son locales al navegador. Para producción se recomienda integrar una base de datos como Supabase o PlanetScale.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
----
+## Deploy on Vercel
 
-## 🗂️ Modelos de Datos
-```typescript
-// Cliente
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  instagram: string;
-  state: string;        // "Activo" | "Inactivo" | "Pendiente"
-  createdAt: string;    // ISO string
-}
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-// Nota
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;    // ISO string
-}
-```
-
----
-
-## 🔮 Próximas Mejoras
-
-- [ ] Autenticación de usuarios
-- [ ] Integración con base de datos (Supabase)
-- [ ] Edición de clientes y notas
-- [ ] Exportar clientes a CSV
-- [ ] Módulo de productos
-- [ ] Modo oscuro
-- [ ] Notificaciones en tiempo real
-
----
-
-## 👨‍💻 Desarrollado con
-
-Next.js + TypeScript + Tailwind CSS + Zustand + Framer Motion
-
----
-
-> Innova — Sistema de gestión moderno y eficiente.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
