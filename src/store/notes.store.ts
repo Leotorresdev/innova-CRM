@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface Note {
   id: string;
@@ -36,6 +36,6 @@ export const useNotesStore = create<NotesStore>()(
           notes: state.notes.filter((n) => n.id !== id),
         })),
     }),
-    { name: "innova-notes" }
+    { name: "innova-notes", storage: createJSONStorage(() => localStorage) }
   )
 );

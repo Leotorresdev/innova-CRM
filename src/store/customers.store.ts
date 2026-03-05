@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { Customer } from "@/lib/types/customer";
 
 interface CustomersState {
@@ -41,6 +41,7 @@ export const useCustomersStore = create<CustomersState>()(
     }),
     {
       name: "innova-customers", // clave en localStorage
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
